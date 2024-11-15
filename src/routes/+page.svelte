@@ -3,7 +3,7 @@
 	export let data;
 </script>
 
-<h1>Welcome to the <strong class="text-primary">Frontend Quiz!</strong></h1>
+<h1>Welcome to <strong class="text-primary">Lenas Frontend Quiz!</strong></h1>
 
 <p>Pick a subject to geet started.</p>
 
