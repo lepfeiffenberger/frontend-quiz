@@ -18,11 +18,28 @@
 	function nextQuestion() {
 		currentQuestion++;
 		submitted = false;
+		progress.update((n) => {
+			if (n + 0.1 > 1) {
+				return 1;
+			} else {
+				return n + 0.1;
+			}
+		});
 	}
 
 	import { writable } from 'svelte/store';
 
-	const progress = writable(0);
+	const progress = writable(0.1);
+
+	function saveData() {
+		localStorage.setItem('score', score);
+		localStorage.setItem('currentQuestion', currentQuestion);
+	}
+
+	$effect(() => {
+		score = localStorage.getItem('score');
+		currentQuestion = localStorage.getItem('currentQuestion');
+	});
 </script>
 
 <progress value={$progress}></progress>
@@ -60,7 +77,6 @@
 	<br />
 	<br />
 	<h1>Punkte: {score}</h1>
-	{selectedAnswer}
 {:else}
 	<h2>Game Over!</h2>
 	<p>You scored {score} out of {data.questions.length} points.</p>
@@ -69,5 +85,14 @@
 
 <style>
 	progress {
+		display: block;
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
+		border-top-right-radius: 10px;
+		border-bottom-right-radius: 10px;
+		width: 25%;
+		background-color: white;
+		border-color: black;
+		color: blueviolet;
 	}
 </style>

@@ -2,14 +2,25 @@
 	import '../app.css';
 	import 'iconify-icon';
 
-	let theme = 'dark';
+	let theme = $state('dark');
 	function switchTheme() {
 		if (theme === 'dark') {
 			theme = 'light';
+			localStorage.setItem('theme', 'light');
 		} else {
 			theme = 'dark';
+			localStorage.setItem('theme', 'dark');
 		}
 	}
+
+	$effect(() => {
+		if (localStorage.getItem('theme')) {
+			theme = localStorage.getItem('theme');
+		}
+		if (localStorage.getItem('theme') === 'light') {
+			document.querySelector('.toggle').checked = false;
+		}
+	});
 </script>
 
 <div data-theme={theme} class="min-h-screen p-4">
@@ -28,6 +39,10 @@
 			<iconify-icon icon="lucide-moon" class="text-2xl"></iconify-icon>
 		</div>
 	</div>
-
+	<!-- {#key data.url}
+		<div in:fade={{ delay: 1000, duration: 1000 }} out:fade={{ duration: 1000 }}>
+			{@render children?.()}
+		</div>
+	{/key} -->
 	<slot />
 </div>
